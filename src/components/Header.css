@@ -1,0 +1,30 @@
+#headerImage {
+    border-radius: 50%;
+}
+
+.headerpart{
+    background-image: url('../images/background.jpg');
+    background-repeat: repeat-y;
+    background-size: 100%;
+}
+
+#header{
+    background-color: #465f7783;
+}
+.image {
+    flex-basis: 15%
+}
+.text {
+    flex-basis: 15%;
+    font-size: 20px;
+    color:white;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-shadow:0 0 5px #f07979, 0 0 6px #0a3ecf;
+
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}

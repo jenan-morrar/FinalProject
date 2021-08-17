@@ -1,0 +1,55 @@
+.about{
+margin-top:2%;
+margin-left: 30%;
+}
+.contact{
+margin-top:2%;
+margin-left:40%
+}
+.home{
+margin-top:2%;
+}
+.post{
+margin-top:2%;
+}
+
+.container2 {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.493);
+    padding: 20px 40px;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-shadow:0 0 5px #f07979, 0 0 6px #0a3ecf;
+}
+#backgroundImage {
+    width: 100%;
+  }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin-left:10%;
+  margin-top: 5%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #cceeff;
+}
