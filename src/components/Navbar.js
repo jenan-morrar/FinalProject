@@ -9,7 +9,7 @@ import './Navbar.css';
 
 function Navbar() {
    const style = {
-        color: '#ff3333'
+        color: '#eb5a5a'
     }
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
