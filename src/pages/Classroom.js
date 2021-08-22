@@ -12,14 +12,14 @@ constructor(props){
    classRoomName:'',
    },
    }
-   this.fetchTask = this.fetchTask.bind(this)
+   this.fetchClassroom = this.fetchClassroom.bind(this)
 };
 
 componentWillMount(){
-this.fetchTask()
+this.fetchClassroom()
 }
 
-fetchTask(){
+fetchClassroom(){
    console.log('Fetching..')
    fetch('http://127.0.0.1:8000/app/classrooms/')
    .then(response => response.json())

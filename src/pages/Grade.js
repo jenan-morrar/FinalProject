@@ -12,14 +12,14 @@ constructor(props){
    gradeName:'',
    },
    }
-   this.fetchTask = this.fetchTask.bind(this)
+   this.fetchGrade = this.fetchGrade.bind(this)
 };
 
 componentWillMount(){
-this.fetchTask()
+this.fetchGrade()
 }
 
-fetchTask(){
+fetchGrade(){
    console.log('Fetching..')
    fetch('http://127.0.0.1:8000/app/grades/')
    .then(response => response.json())
@@ -33,11 +33,13 @@ var grades = this.state.gradeList
   <table>
   <tr>
     <th>Grade Name</th>
+    <th>Edit/Delete Grade</th>
   </tr>
    {grades.map(function(grade,index){
      return (
      <tr key={index}>
           <td>{grade.gradeName}</td>
+          <td><button>Edit </button></td>
      </tr>
      )
    })}
