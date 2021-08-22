@@ -6,12 +6,12 @@ function Header (){
 
   return(
      <div className='header'>
-    <header class="headerpart">
-        <div class="container" id="header">
-            <div class="image">
+    <header className="headerpart">
+        <div className="container" id="header">
+            <div className="image">
                 <img src={logo} alt="Logo" height="200" width="200" />
             </div>
-            <div class="text">
+            <div className="text">
                 <p id="headerInfo">Al-QUDS <br /> HIGH SCHOOL </p>
             </div>
         </div>

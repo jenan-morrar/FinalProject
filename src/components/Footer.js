@@ -10,7 +10,7 @@ function Footer (){
       <footer id="footerPart">
 		<img src={logo} alt="Logo" width="120" height="120" className="aligning" />
 		<div id="footerInfo" className="aligning">
-			<p><span className="FontSize">Address:</span><br />Main street/ Damascus Gate<br />Jerusalem<br />Palestine<br /><br /><span class="FontSize">Mail Address:</span><br />Al-Quds@yahoo.com
+			<p><span className="FontSize">Address:</span><br />Main street/ Damascus Gate<br />Jerusalem<br />Palestine<br /><br /><span className="FontSize">Mail Address:</span><br />Al-Quds@yahoo.com
 				<br /><br />Copyrigth
 				&copy; 2021 Al-Quds High School
 			</p>
