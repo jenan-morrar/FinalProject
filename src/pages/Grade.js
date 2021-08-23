@@ -3,6 +3,8 @@ import './pages.css'
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
+import * as BsIcons from 'react-icons/bs';
+import { NavLink } from 'react-router-dom';
 
 class Grade extends React.Component {
 
@@ -22,6 +24,19 @@ componentWillMount(){
 this.fetchGrade()
 }
 
+ deleteData(pk){
+    fetch('http://127.0.0.1:8000/app/grades/'+pk+'/' ,{
+         method:'DELETE',
+         body:JSON.stringify(this.state),
+    })
+    .then(response=>response)
+    .then((data)=>{
+       if(data){
+          this.fetchGrade();
+       }
+    });
+  }
+
 fetchGrade(){
    console.log('Fetching..')
    fetch('http://127.0.0.1:8000/app/grades/')
@@ -33,12 +48,34 @@ render(){
 var grades = this.state.gradeList
   return (
     <div className='grade'>
+
+     <ul className='pagesNavbar'>
+     <li >
+        <NavLink to='#' className='icon'>
+           <BsIcons.BsFileEarmarkText/>
+           <span>Grades</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/grade' className='icon'>
+           <FaIcons.FaListUl/>
+           <span>List</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/gradeForm' className='icon'>
+           <MdIcons.MdAddCircle />
+           <span>Add</span>
+        </NavLink>
+     </li>
+</ul>
+
   <table>
   <tr>
     <th>Grade Name</th>
     <th>Actions</th>
   </tr>
-   {grades.map(function(grade,index){
+   {grades.map((grade,index)=>{
      return (
      <tr key={index}>
           <td>{grade.gradeName}</td>
@@ -47,7 +84,7 @@ var grades = this.state.gradeList
               <AiIcons.AiFillEdit />
               <span>Edit</span>
            </button>
-           <button className='deleteButton'>
+           <button className='deleteButton' onClick={()=>this.deleteData(grade.pk)}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

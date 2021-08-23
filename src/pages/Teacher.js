@@ -3,7 +3,7 @@ import './pages.css'
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-
+import { NavLink } from 'react-router-dom';
 
 class Teacher extends React.Component {
 constructor(props){
@@ -26,13 +26,25 @@ this.fetchTeacher()
 this.fetchSubject()
 }
 
+ deleteData(pk){
+    fetch('http://127.0.0.1:8000/app/teachers/'+pk+'/' ,{
+         method:'DELETE',
+         body:JSON.stringify(this.state),
+    })
+    .then(response=>response)
+    .then((data)=>{
+       if(data){
+          this.fetchTeacher();
+       }
+    });
+  }
+
 fetchTeacher(){
    console.log('Fetching..')
    fetch('http://127.0.0.1:8000/app/teachers/')
    .then(response => response.json())
    .then(data =>
-   this.setState({TeacherList:data}),
-   console.log('data:',this.state.TeacherList))
+   this.setState({TeacherList:data}))
 }
 fetchSubject(){
    console.log('Fetching..')
@@ -48,18 +60,39 @@ render(){
 
   return (
     <div className='teacher'>
+
+    <ul className='pagesNavbar'>
+     <li >
+        <NavLink to='#' className='icon'>
+           <FaIcons.FaUserTie/>
+           <span>Teachers</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/teacher' className='icon'>
+           <FaIcons.FaListUl/>
+           <span>List</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink  to='/teacherForm' className='icon'>
+           <MdIcons.MdAddCircle />
+           <span>Add</span>
+        </NavLink>
+     </li>
+</ul>
       <table>
         <tr>
           <th>Teacher Name</th>
           <th>Teacher Subjects</th>
           <th> Actions</th>
         </tr>
-      {teachers.map(function(teacher,index){
+      {teachers.map((teacher,index)=>{
           return (
              <tr key={index}>
                 <td>{teacher.teacherName}</td>
                 {subjects.map(function(subject,index){
-                     if(subject.pk == teacher.teacherSubjects){
+                     if(subject.pk === parseInt(teacher.teacherSubjects)){
                         return <td>{subject.subjectName}</td>
                      }else{
                         return null;
@@ -70,7 +103,7 @@ render(){
               <AiIcons.AiFillEdit />
               <span>Edit</span>
            </button>
-           <button className='deleteButton'>
+           <button className='deleteButton' onClick={()=>this.deleteData(teacher.pk)}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

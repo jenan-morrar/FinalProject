@@ -3,7 +3,8 @@ import './pages.css'
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-
+import * as GiIcons from 'react-icons/gi';
+import { NavLink } from 'react-router-dom';
 
 class Subject extends React.Component {
 constructor(props){
@@ -28,6 +29,19 @@ this.fetchClassroom()
 
 }
 
+ deleteData(pk){
+    fetch('http://127.0.0.1:8000/app/subjects/'+pk+'/' ,{
+         method:'DELETE',
+         body:JSON.stringify(this.state),
+    })
+    .then(response=>response)
+    .then((data)=>{
+       if(data){
+          this.fetchSubject();
+       }
+    });
+  }
+
 fetchSubject(){
    console.log('Fetching..')
    fetch('http://127.0.0.1:8000/app/subjects/')
@@ -51,13 +65,33 @@ var classrooms = this.state.classroomList
 
   return (
   <div className='subject'>
-        <table>
+  <ul className='pagesNavbar'>
+     <li >
+        <NavLink to='#' className='icon'>
+           <GiIcons.GiMaterialsScience/>
+           <span>Subjects</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/subject' className='icon'>
+           <FaIcons.FaListUl/>
+           <span>List</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/subjectForm' className='icon'>
+           <MdIcons.MdAddCircle />
+           <span>Add</span>
+        </NavLink>
+     </li>
+</ul>
+ <table>
   <tr>
     <th>Subject Name</th>
     <th>Subject ClassRoom</th>
     <th>Actions</th>
   </tr>
-    {subjects.map(function(subject,index){
+    {subjects.map((subject,index)=>{
      return (
      <tr key={index}>
           <td>{subject.subjectName}</td>
@@ -73,7 +107,7 @@ var classrooms = this.state.classroomList
               <AiIcons.AiFillEdit />
               <span>Edit</span>
            </button>
-           <button className='deleteButton'>
+           <button className='deleteButton' onClick={()=>this.deleteData(subject.pk)}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

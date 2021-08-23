@@ -19,7 +19,6 @@ import SubjectForm from './pages/SubjectForm';
 import TeacherForm from './pages/TeacherForm';
 import StudentForm from './pages/StudentForm';
 
-
 function App() {
   return (
     <div className="App">
@@ -36,7 +35,7 @@ function App() {
           <Route path='/subject'  component={Subject} />
           <Route path='/classroom'  component={Classroom} />
           <Route path='/grade'  component={Grade} />
-          <Route path='/gradeForm'  component={Grade} />
+          <Route path='/gradeForm'  component={GradeForm} />
           <Route path='/classRoomForm'  component={ClassRoomForm} />
           <Route path='/subjectForm'  component={SubjectForm} />
           <Route path='/teacherForm'  component={TeacherForm} />

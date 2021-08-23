@@ -1,20 +1,39 @@
 import React from 'react'
+import './pages.css';
+import * as FaIcons from 'react-icons/fa';
+import * as MdIcons from 'react-icons/md';
+import * as SiIcons from 'react-icons/si';
+import { NavLink } from 'react-router-dom';
 
 
 
-class StudentForm extends React.Component{
+class ClassRoomForm extends React.Component{
 
   render(){
   return(
-  <div className='studentForm'>
-    <h1>Add Grade</h1>
-    <form  method="post">
-            <label>Grade Name:</label>
-            <input type="text" name="GradeName" PLACEHOLDER="Enter Grade Name" />
-            <input type="submit" name="AddGrade" value="Add" className="button" />
-    </form>
+  <div className='classroomForm'>
+      <ul className='pagesNavbar'>
+     <li >
+        <NavLink to='#' className='icon'>
+           <SiIcons.SiGoogleclassroom/>
+           <span>ClassRooms</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/classroom' className='icon'>
+           <FaIcons.FaListUl/>
+           <span>List</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/classroomForm' className='icon'>
+           <MdIcons.MdAddCircle />
+           <span>Add</span>
+        </NavLink>
+     </li>
+</ul>
   </div>
    )
  }
 }
-export default StudentForm;
+export default ClassRoomForm;

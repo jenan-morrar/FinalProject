@@ -41,7 +41,7 @@ table {
   border-collapse: collapse;
   width: 60%;
   margin-left:20%;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 td, th {
@@ -105,4 +105,42 @@ font-size:25px;
 .addIcon:hover{
   background-color: #555555;
   color: white;
+}
+
+.pagesNavbar{
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:60%;
+  margin-left:20%;
+  margin-top:3%;
+}
+
+.pagesNavbar li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+.pagesNavbar li:last-child {
+  border-right: none;
+}
+
+.pagesNavbar li a {
+  display: block;
+  color: rgb(146, 144, 144);
+  text-align: center;
+  padding-left:15px;
+  padding-right:15px;
+  padding-top:10px;
+  padding-bottom:15px;
+  text-decoration: none;
+}
+
+.pagesNavbar li a:hover:not(.active) {
+  color:white;
+}
+
+.pagesNavbar .active {
+ color:white
 }

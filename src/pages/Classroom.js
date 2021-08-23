@@ -3,9 +3,8 @@ import './pages.css';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
+import * as SiIcons from 'react-icons/si';
 import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
 
 class Classroom extends React.Component {
 constructor(props){
@@ -23,6 +22,18 @@ constructor(props){
 componentWillMount(){
 this.fetchClassroom()
 }
+ deleteData(pk){
+    fetch('http://127.0.0.1:8000/app/classrooms/'+pk+'/' ,{
+         method:'DELETE',
+         body:JSON.stringify(this.state),
+    })
+    .then(response=>response)
+    .then((data)=>{
+       if(data){
+          this.fetchClassroom();
+       }
+    });
+  }
 
 fetchClassroom(){
    console.log('Fetching..')
@@ -37,18 +48,32 @@ var classrooms = this.state.classroomList
 
  return (
 <div className='classroom'>
-
- <p className='addStyle'>To Add ClassRoom
-     <span> <NavLink exact={true} to='/classRoomForm' className='addIcon'>
-     <MdIcons.MdAddCircleOutline />
-     </NavLink></span>
-  </p>
+  <ul className='pagesNavbar'>
+     <li >
+        <NavLink to='#' className='icon'>
+           <SiIcons.SiGoogleclassroom/>
+           <span>ClassRooms</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/classroom' className='icon'>
+           <FaIcons.FaListUl/>
+           <span>List</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/classroomForm' className='icon'>
+           <MdIcons.MdAddCircle />
+           <span>Add</span>
+        </NavLink>
+     </li>
+</ul>
   <table>
   <tr>
     <th>ClassRoom Name</th>
     <th>Actions </th>
   </tr>
-  {classrooms.map(function(classroom,index){
+  {classrooms.map((classroom,index)=>{
      return (
      <tr key={index}>
           <td>{classroom.classRoomName}</td>
@@ -56,7 +81,7 @@ var classrooms = this.state.classroomList
               <AiIcons.AiFillEdit />
               <span>Edit</span>
            </button>
-           <button className='deleteButton'>
+           <button className='deleteButton' onClick={()=>this.deleteData(classroom.pk)}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

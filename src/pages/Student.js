@@ -3,7 +3,7 @@ import './pages.css'
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-
+import { NavLink } from 'react-router-dom';
 
 class Student extends React.Component{
 constructor(props){
@@ -30,6 +30,19 @@ this.fetchStudents()
 this.fetchGrade()
 this.fetchSubject()
 }
+
+deleteData(pk){
+    fetch('http://127.0.0.1:8000/app/students/'+pk+'/' ,{
+         method:'DELETE',
+         body:JSON.stringify(this.state),
+    })
+    .then(response=>response)
+    .then((data)=>{
+       if(data){
+          this.fetchStudents();
+       }
+    });
+  }
 
 fetchStudents(){
    console.log('Fetching..')
@@ -62,6 +75,26 @@ var subjects = this.state.subjectsList
 
   return (
   <div className='student'>
+  <ul className='pagesNavbar'>
+     <li >
+        <NavLink to='#' className='icon'>
+           <FaIcons.FaUserGraduate/>
+           <span>Students</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/student' className='icon'>
+           <FaIcons.FaListUl/>
+           <span>List</span>
+        </NavLink>
+     </li>
+     <li >
+        <NavLink to='/studentForm' className='icon'>
+           <MdIcons.MdAddCircle />
+           <span>Add</span>
+        </NavLink>
+     </li>
+</ul>
    <table>
       <tr>
         <th>Student Name</th>
@@ -70,13 +103,13 @@ var subjects = this.state.subjectsList
         <th>Student Grade </th>
         <th>Actions </th>
       </tr>
-      {students.map(function(student,index){
+      {students.map((student,index)=>{
           return (
              <tr key={index}>
                 <td>{student.studentName}</td>
                 <td>{student.birthdate}</td>
                 {subjects.map(function(subject,index){
-                    if(subject.pk == student.studentSubjects){
+                    if(subject.pk === parseInt(student.studentSubjects)){
                       return <td>{subject.subjectName}</td>
                     }else{
                       return null;
@@ -93,7 +126,7 @@ var subjects = this.state.subjectsList
               <AiIcons.AiFillEdit />
               <span>Edit</span>
            </button>
-           <button className='deleteButton'>
+           <button className='deleteButton' onClick={()=>this.deleteData(student.pk)}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>
