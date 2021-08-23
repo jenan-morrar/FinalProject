@@ -32,6 +32,16 @@ class GradeForm extends React.Component{
         </NavLink>
      </li>
 </ul>
+
+<div class="formContainer">
+  <form>
+    <label for="gradeName"> <BsIcons.BsFileEarmarkText className='icon'/> Grade Name</label>
+    <input type="text" id="gradeName" name="gradeName" placeholder="Grade name.." />
+
+    <input type="submit" value="Submit" />
+
+  </form>
+</div>
   </div>
    )
  }

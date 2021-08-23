@@ -32,6 +32,16 @@ class ClassRoomForm extends React.Component{
         </NavLink>
      </li>
 </ul>
+
+<div class="formContainer">
+  <form>
+    <label for="classroomName"> <SiIcons.SiGoogleclassroom className='icon'/> Classroom Name</label>
+    <input type="text" id="classroomName" name="classroomName" placeholder="Classroom name.." />
+
+    <input type="submit" value="Submit" />
+
+  </form>
+</div>
   </div>
    )
  }
