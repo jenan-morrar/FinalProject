@@ -1,5 +1,10 @@
 import React from 'react';
-import './pages.css'
+import './pages.css';
+import * as AiIcons from 'react-icons/ai';
+import * as FaIcons from 'react-icons/fa';
+import * as MdIcons from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class Classroom extends React.Component {
@@ -29,17 +34,32 @@ fetchClassroom(){
 
 render(){
 var classrooms = this.state.classroomList
-console.log('room',classrooms)
-  return (
-    <div className='classroom'>
-<table>
+
+ return (
+<div className='classroom'>
+
+ <p className='addStyle'>To Add ClassRoom
+     <span> <NavLink exact={true} to='/classRoomForm' className='addIcon'>
+     <MdIcons.MdAddCircleOutline />
+     </NavLink></span>
+  </p>
+  <table>
   <tr>
     <th>ClassRoom Name</th>
+    <th>Actions </th>
   </tr>
   {classrooms.map(function(classroom,index){
      return (
      <tr key={index}>
           <td>{classroom.classRoomName}</td>
+           <td> <button className='editButton'>
+              <AiIcons.AiFillEdit />
+              <span>Edit</span>
+           </button>
+           <button className='deleteButton'>
+              <AiIcons.AiFillDelete />
+              <span>Delete</span>
+           </button> </td>
      </tr>
      )
    })}

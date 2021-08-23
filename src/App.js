@@ -13,6 +13,11 @@ import Teacher from './pages/Teacher';
 import Subject from './pages/Subject';
 import Classroom from './pages/Classroom';
 import Grade from './pages/Grade';
+import GradeForm from './pages/GradeForm';
+import ClassRoomForm from './pages/ClassRoomForm';
+import SubjectForm from './pages/SubjectForm';
+import TeacherForm from './pages/TeacherForm';
+import StudentForm from './pages/StudentForm';
 
 
 function App() {
@@ -31,6 +36,11 @@ function App() {
           <Route path='/subject'  component={Subject} />
           <Route path='/classroom'  component={Classroom} />
           <Route path='/grade'  component={Grade} />
+          <Route path='/gradeForm'  component={Grade} />
+          <Route path='/classRoomForm'  component={ClassRoomForm} />
+          <Route path='/subjectForm'  component={SubjectForm} />
+          <Route path='/teacherForm'  component={TeacherForm} />
+          <Route path='/studentForm'  component={StudentForm} />
         </Switch>
       </Router>
 
