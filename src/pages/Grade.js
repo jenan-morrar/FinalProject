@@ -1,5 +1,8 @@
 import React from 'react';
 import './pages.css'
+import * as AiIcons from 'react-icons/ai';
+import * as FaIcons from 'react-icons/fa';
+import * as MdIcons from 'react-icons/md';
 
 class Grade extends React.Component {
 
@@ -33,13 +36,22 @@ var grades = this.state.gradeList
   <table>
   <tr>
     <th>Grade Name</th>
-    <th>Edit/Delete Grade</th>
+    <th>Actions</th>
   </tr>
    {grades.map(function(grade,index){
      return (
      <tr key={index}>
           <td>{grade.gradeName}</td>
-          <td><button>Edit </button></td>
+
+          <td> <button className='editButton'>
+              <AiIcons.AiFillEdit />
+              <span>Edit</span>
+           </button>
+           <button className='deleteButton'>
+              <AiIcons.AiFillDelete />
+              <span>Delete</span>
+           </button> </td>
+
      </tr>
      )
    })}

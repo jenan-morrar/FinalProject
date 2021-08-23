@@ -1,5 +1,8 @@
 import React from 'react';
 import './pages.css'
+import * as AiIcons from 'react-icons/ai';
+import * as FaIcons from 'react-icons/fa';
+import * as MdIcons from 'react-icons/md';
 
 
 class Subject extends React.Component {
@@ -52,6 +55,7 @@ var classrooms = this.state.classroomList
   <tr>
     <th>Subject Name</th>
     <th>Subject ClassRoom</th>
+    <th>Actions</th>
   </tr>
     {subjects.map(function(subject,index){
      return (
@@ -64,6 +68,15 @@ var classrooms = this.state.classroomList
                     return null;
                   }
            })}
+
+          <td> <button className='editButton'>
+              <AiIcons.AiFillEdit />
+              <span>Edit</span>
+           </button>
+           <button className='deleteButton'>
+              <AiIcons.AiFillDelete />
+              <span>Delete</span>
+           </button> </td>
      </tr>
      )
    })}

@@ -1,5 +1,8 @@
 import React from 'react';
 import './pages.css'
+import * as AiIcons from 'react-icons/ai';
+import * as FaIcons from 'react-icons/fa';
+import * as MdIcons from 'react-icons/md';
 
 
 class Student extends React.Component{
@@ -65,6 +68,7 @@ var subjects = this.state.subjectsList
         <th>Student Birthday</th>
         <th>Student Subjects </th>
         <th>Student Grade </th>
+        <th>Actions </th>
       </tr>
       {students.map(function(student,index){
           return (
@@ -85,6 +89,15 @@ var subjects = this.state.subjectsList
                       return null;
                    }
                 })}
+            <td> <button className='editButton'>
+              <AiIcons.AiFillEdit />
+              <span>Edit</span>
+           </button>
+           <button className='deleteButton'>
+              <AiIcons.AiFillDelete />
+              <span>Delete</span>
+           </button> </td>
+
              </tr>
           )
       })}
