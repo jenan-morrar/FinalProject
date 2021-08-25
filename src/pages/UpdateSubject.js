@@ -6,7 +6,7 @@ import * as GiIcons from 'react-icons/gi';
 import * as SiIcons from 'react-icons/si';
 import { NavLink } from 'react-router-dom';
 
-class SubjectForm extends React.Component{
+class UpdateSubject extends React.Component{
 
   constructor(){
     super();
@@ -29,8 +29,9 @@ class SubjectForm extends React.Component{
 
     // Submit Form
     submitForm(){
-        fetch('http://127.0.0.1:8000/app/subjects/',{
-            method:'POST',
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/subjects/'+id+'/',{
+            method:'PUT',
             body:JSON.stringify(this.state),
             headers:{
                 'Content-type': 'application/json; charset=UTF-8',
@@ -38,18 +39,36 @@ class SubjectForm extends React.Component{
         })
         .then(response=>response.json())
         .then((data)=>console.log(data));
-
-        this.setState={
-       subjectName:'',
-       classRoomName:{
-       classRoomName:'',
-       },
     }
+
+    fetchSubject(){
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/subjects/'+id)
+        .then(response=>response.json())
+        .then((data)=>{
+            this.setState({
+                subjectName:data.subjectName,
+            });
+           //To Fetch Class Room
+           fetch('http://127.0.0.1:8000/app/classrooms/'+data.classRoomName)
+           .then(response => response.json())
+           .then((data)=>{
+           this.setState({
+           classRoomName:{
+           classRoomName:data.classRoomName,
+           },
+      });
+    });
+  });
+}
+
+    componentDidMount(){
+        this.fetchSubject();
     }
 
   render(){
   return(
-  <div className='subjectForm'>
+  <div className='updateSubject'>
       <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
@@ -74,12 +93,12 @@ class SubjectForm extends React.Component{
 <div className="formContainer">
   <form>
     <label> <GiIcons.GiMaterialsScience className='icon'/> Subject Name</label>
-    <input type="text" id="subjectName" name="subjectName" value={this.state.subjectName} onChange={this.changeHandler} placeholder="Enter Subject Name.." />
+    <input type="text" id="subjectName" name="subjectName" value={this.state.subjectName} onChange={this.changeHandler} />
 
     <label> <SiIcons.SiGoogleclassroom className='icon'/> Subject Classroom</label>
-    <input type="text" id="classRoomName" name="classRoomName" value={this.state.classRoomName.classRoomName} onChange={this.changeHandler} placeholder="Enter Subject Classroom.."/>
+    <input type="text" id="classRoomName" name="classRoomName" value={this.state.classRoomName.classRoomName} onChange={this.changeHandler} />
 
-    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to add this item?'))this.submitForm()}} />
+    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to edit this item?'))this.submitForm()}} />
 
   </form>
 </div>
@@ -87,4 +106,4 @@ class SubjectForm extends React.Component{
    )
  }
 }
-export default SubjectForm;
+export default UpdateSubject;

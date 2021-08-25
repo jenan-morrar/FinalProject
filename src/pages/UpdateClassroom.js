@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 
 
-class ClassRoomForm extends React.Component{
+class UpdateClassroom extends React.Component{
 
   constructor(){
     super();
@@ -27,8 +27,9 @@ class ClassRoomForm extends React.Component{
 
     // Submit Form
     submitForm(){
-        fetch('http://127.0.0.1:8000/app/classrooms/',{
-            method:'POST',
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/classrooms/'+id+'/',{
+            method:'PUT',
             body:JSON.stringify(this.state),
             headers:{
                 'Content-type': 'application/json; charset=UTF-8',
@@ -36,15 +37,25 @@ class ClassRoomForm extends React.Component{
         })
         .then(response=>response.json())
         .then((data)=>console.log(data));
-
-        this.setState={
-       classRoomName:'',
     }
+
+    fetchClassroom(){
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/classrooms/'+id)
+        .then(response=>response.json())
+        .then((data)=>{
+            this.setState({
+                classRoomName:data.classRoomName,
+            });
+        });
+    }
+    componentDidMount(){
+        this.fetchClassroom();
     }
 
   render(){
   return(
-  <div className='classRoomForm'>
+  <div className='updateClassroom'>
       <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
@@ -69,9 +80,9 @@ class ClassRoomForm extends React.Component{
 <div class="formContainer">
   <form>
     <label for="classRoomName"> <SiIcons.SiGoogleclassroom className='icon'/> Classroom Name</label>
-    <input type="text" id="classRoomName" name="classRoomName" value={this.state.classRoomName} onChange={this.changeHandler} placeholder="Enter Classroom Name.."/>
+    <input type="text" id="classRoomName" name="classRoomName" value={this.state.classRoomName} onChange={this.changeHandler}/>
 
-    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to add this item?'))this.submitForm()}} />
+    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to edit this item?'))this.submitForm()}} />
 
   </form>
 </div>
@@ -79,4 +90,4 @@ class ClassRoomForm extends React.Component{
    )
  }
 }
-export default ClassRoomForm;
+export default UpdateClassroom;

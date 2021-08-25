@@ -1,7 +1,7 @@
 import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as SiIcons from 'react-icons/si';
-import * as BsIcons from 'react-icons/bs';
+import * as MdIcons from 'react-icons/md';
 import * as GiIcons from 'react-icons/gi';
 
 
@@ -28,7 +28,7 @@ export const SidebarData = [
   {
     title: 'Grade',
     path: '/grade',
-    icon: <BsIcons.BsFileEarmarkText />,
+    icon: <MdIcons.MdGrade />,
     cName: 'nav-text'
   },
   {

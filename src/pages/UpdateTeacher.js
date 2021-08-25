@@ -5,15 +5,13 @@ import * as MdIcons from 'react-icons/md';
 import * as GiIcons from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 
-class TeacherForm extends React.Component{
+class UpdateTeacher extends React.Component{
 
   constructor(){
     super();
     this.state={
        teacherName:'',
-       teacherSubjects:{
-       subjectName:'',
-       }
+       teacherSubjects:{}
     }
     this.changeHandler=this.changeHandler.bind(this);
     this.submitForm=this.submitForm.bind(this);
@@ -28,7 +26,8 @@ class TeacherForm extends React.Component{
 
     // Submit Form
     submitForm(){
-        fetch('http://127.0.0.1:8000/app/teachers/',{
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/teachers/'+id+'/',{
             method:'PUT',
             body:JSON.stringify(this.state),
             headers:{
@@ -37,18 +36,36 @@ class TeacherForm extends React.Component{
         })
         .then(response=>response.json())
         .then((data)=>console.log(data));
-
-        this.setState={
-       teacherName:'',
-       teacherSubjects:{
-       subjectName:'',
-       }
     }
+
+    fetchTeacher(){
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/teachers/'+id)
+        .then(response=>response.json())
+        .then((data)=>{
+            this.setState({
+                teacherName:data.teacherName,
+            });
+
+            //To Fetch Subject Room
+            console.log('data:',data)
+            console.log('id:',data.teacherSubjects)
+           fetch('http://127.0.0.1:8000/app/subjects/'+data.teacherSubjects)
+           .then(response => response.json())
+           .then((data)=>{
+           this.setState({
+           teacherSubjects:data,
+      });
+    });
+  });
+}
+    componentDidMount(){
+        this.fetchTeacher();
     }
 
   render(){
   return(
-  <div className='TeacherForm'>
+  <div className='updateTeacher'>
       <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
@@ -73,12 +90,12 @@ class TeacherForm extends React.Component{
 <div className="formContainer">
   <form>
     <label> <FaIcons.FaUserTie className='icon'/> Teacher Name</label>
-    <input type="text" id="teacherName" name="teacherName" value={this.state.teacherName} onChange={this.changeHandler} placeholder="Enter Teacher Name.."/>
+    <input type="text" id="teacherName" name="teacherName" value={this.state.teacherName} onChange={this.changeHandler} />
 
     <label> <GiIcons.GiMaterialsScience className='icon'/> Subject Name</label>
-    <input type="text" id="teacherSubjects" name="teacherSubjects" value={this.state.teacherSubjects.subjectName} onChange={this.changeHandler} placeholder="Enter Teacher Subject.."/>
+    <input type="text" id="teacherSubjects" name="teacherSubjects" value={this.state.teacherSubjects.subjectName} onChange={this.changeHandler} />
 
-    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to add this item?'))this.submitForm()}} />
+    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to edit this item?'))this.submitForm()}}/>
 
   </form>
 </div>
@@ -86,4 +103,4 @@ class TeacherForm extends React.Component{
    )
  }
 }
-export default TeacherForm;
+export default UpdateTeacher;

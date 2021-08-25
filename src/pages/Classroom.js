@@ -77,11 +77,12 @@ var classrooms = this.state.classroomList
      return (
      <tr key={index}>
           <td>{classroom.classRoomName}</td>
-           <td> <button className='editButton'>
-              <AiIcons.AiFillEdit />
-              <span>Edit</span>
-           </button>
-           <button className='deleteButton' onClick={()=>this.deleteData(classroom.pk)}>
+           <td>
+           <NavLink to={'updateClassroom/'+classroom.pk} className='editButton'>
+           <AiIcons.AiFillEdit />
+           <span>Edit</span>
+           </NavLink>
+           <button className='deleteButton' onClick={()=> {if (window.confirm('Are you sure you wish to delete this item?'))this.deleteData(classroom.pk)}}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

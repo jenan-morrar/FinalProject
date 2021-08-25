@@ -18,6 +18,12 @@ import ClassRoomForm from './pages/ClassRoomForm';
 import SubjectForm from './pages/SubjectForm';
 import TeacherForm from './pages/TeacherForm';
 import StudentForm from './pages/StudentForm';
+import UpdateGrade from './pages/UpdateGrade';
+import UpdateClassroom from './pages/UpdateClassroom';
+import UpdateSubject from './pages/UpdateSubject';
+import UpdateTeacher from './pages/UpdateTeacher';
+import UpdateStudent from './pages/UpdateStudent';
+
 
 function App() {
   return (
@@ -40,6 +46,12 @@ function App() {
           <Route path='/subjectForm'  component={SubjectForm} />
           <Route path='/teacherForm'  component={TeacherForm} />
           <Route path='/studentForm'  component={StudentForm} />
+          <Route path='/updateGrade/:id'  component={UpdateGrade} />
+          <Route path='/updateClassroom/:id'  component={UpdateClassroom} />
+          <Route path='/updateSubject/:id'  component={UpdateSubject} />
+          <Route path='/updateTeacher/:id'  component={UpdateTeacher} />
+          <Route path='/updateStudent/:id'  component={UpdateStudent} />
+
         </Switch>
       </Router>
 

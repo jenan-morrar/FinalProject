@@ -103,11 +103,13 @@ var classrooms = this.state.classroomList
                   }
            })}
 
-          <td> <button className='editButton'>
-              <AiIcons.AiFillEdit />
-              <span>Edit</span>
-           </button>
-           <button className='deleteButton' onClick={()=>this.deleteData(subject.pk)}>
+          <td>
+          <NavLink to={'updateSubject/'+subject.pk} className='editButton'>
+           <AiIcons.AiFillEdit />
+           <span>Edit</span>
+           </NavLink>
+
+           <button className='deleteButton' onClick={()=> {if (window.confirm('Are you sure you wish to delete this item?'))this.deleteData(subject.pk)}}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

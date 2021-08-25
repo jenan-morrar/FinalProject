@@ -2,17 +2,14 @@ import React from 'react'
 import './pages.css';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-import * as SiIcons from 'react-icons/si';
 import { NavLink } from 'react-router-dom';
 
-
-
-class ClassRoomForm extends React.Component{
+class UpdateGrade extends React.Component{
 
   constructor(){
     super();
     this.state={
-       classRoomName:'',
+       gradeName:'',
     }
     this.changeHandler=this.changeHandler.bind(this);
     this.submitForm=this.submitForm.bind(this);
@@ -27,8 +24,9 @@ class ClassRoomForm extends React.Component{
 
     // Submit Form
     submitForm(){
-        fetch('http://127.0.0.1:8000/app/classrooms/',{
-            method:'POST',
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/grades/'+id+'/',{
+            method:'PUT',
             body:JSON.stringify(this.state),
             headers:{
                 'Content-type': 'application/json; charset=UTF-8',
@@ -36,47 +34,54 @@ class ClassRoomForm extends React.Component{
         })
         .then(response=>response.json())
         .then((data)=>console.log(data));
-
-        this.setState={
-       classRoomName:'',
     }
+
+    fetchGrade(){
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/grades/'+id)
+        .then(response=>response.json())
+        .then((data)=>{
+            this.setState({
+                gradeName:data.gradeName,
+            });
+        });
+    }
+    componentDidMount(){
+        this.fetchGrade();
     }
 
   render(){
   return(
-  <div className='classRoomForm'>
+  <div className='updateGrade'>
       <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
-           <SiIcons.SiGoogleclassroom/>
-           <span>ClassRooms</span>
+           <MdIcons.MdGrade/>
+           <span>Grades</span>
         </NavLink>
      </li>
      <li >
-        <NavLink to='/classroom' className='icon'>
+        <NavLink to='/grade' className='icon'>
            <FaIcons.FaListUl/>
            <span>List</span>
         </NavLink>
      </li>
      <li >
-        <NavLink to='/classroomForm' className='icon'>
+        <NavLink to='/gradeForm' className='icon'>
            <MdIcons.MdAddCircle />
            <span>Add</span>
         </NavLink>
      </li>
 </ul>
 
-<div class="formContainer">
-  <form>
-    <label for="classRoomName"> <SiIcons.SiGoogleclassroom className='icon'/> Classroom Name</label>
-    <input type="text" id="classRoomName" name="classRoomName" value={this.state.classRoomName} onChange={this.changeHandler} placeholder="Enter Classroom Name.."/>
+<div className="formContainer">
+    <label> <MdIcons.MdGrade className='icon'/> Grade Name</label>
+    <input type="text" id="gradeName" name="gradeName" value={this.state.gradeName} onChange={this.changeHandler} />
 
-    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to add this item?'))this.submitForm()}} />
-
-  </form>
+    <input type="submit"  onClick={()=> {if (window.confirm('Are you sure you wish to delete this item?'))this.submitForm()}} />
 </div>
   </div>
    )
  }
 }
-export default ClassRoomForm;
+export default UpdateGrade;

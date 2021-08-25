@@ -122,11 +122,13 @@ var subjects = this.state.subjectsList
                       return null;
                    }
                 })}
-            <td> <button className='editButton'>
-              <AiIcons.AiFillEdit />
-              <span>Edit</span>
-           </button>
-           <button className='deleteButton' onClick={()=>this.deleteData(student.pk)}>
+            <td>
+            <NavLink to={'updateStudent/'+student.pk} className='editButton'>
+           <AiIcons.AiFillEdit />
+           <span>Edit</span>
+           </NavLink>
+
+           <button className='deleteButton' onClick={()=> {if (window.confirm('Are you sure you wish to delete this item?'))this.deleteData(student.pk)}}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

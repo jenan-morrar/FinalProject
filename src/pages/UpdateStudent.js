@@ -5,19 +5,15 @@ import * as MdIcons from 'react-icons/md';
 import * as GiIcons from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 
-class StudentForm extends React.Component{
+class UpdateStudent extends React.Component{
 
   constructor(){
     super();
     this.state={
        studentName:'',
        birthdate:null,
-       studentSubjects:{
-       subjectName:'',
-       },
-       studentGrade:{
-       gradeName:'',
-       },
+       studentSubjects:{},
+       studentGrade:{},
     }
     this.changeHandler=this.changeHandler.bind(this);
     this.submitForm=this.submitForm.bind(this);
@@ -32,7 +28,8 @@ class StudentForm extends React.Component{
 
     // Submit Form
     submitForm(){
-        fetch('http://127.0.0.1:8000/app/students/',{
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/students/'+id+'/',{
             method:'PUT',
             body:JSON.stringify(this.state),
             headers:{
@@ -41,22 +38,43 @@ class StudentForm extends React.Component{
         })
         .then(response=>response.json())
         .then((data)=>console.log(data));
-
-        this.setState={
-       studentName:'',
-       birthdate:null,
-       studentSubjects:{
-       subjectName:'',
-       },
-       studentGrade:{
-       gradeName:'',
-       },
     }
+
+    fetchStudent(){
+        var id=this.props.match.params.id;
+        fetch('http://127.0.0.1:8000/app/students/'+id)
+        .then(response=>response.json())
+        .then((data)=>{
+            this.setState({
+                studentName:data.studentName,
+                birthdate:data.birthdate,
+            });
+
+            //To Fetch Grade Room
+           fetch('http://127.0.0.1:8000/app/grades/'+data.studentGrade)
+           .then(response => response.json())
+           .then((data)=>{
+           this.setState({
+           studentGrade:data,
+      });
+    });
+           //To Fetch Subject Room
+           fetch('http://127.0.0.1:8000/app/subjects/'+data.studentSubjects)
+           .then(response => response.json())
+           .then((data)=>{
+           this.setState({
+           studentSubjects:data,
+      });
+    });
+  });
+}
+    componentDidMount(){
+        this.fetchStudent();
     }
 
   render(){
   return(
-  <div className='studentForm'>
+  <div className='updateStudent'>
       <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
@@ -81,7 +99,7 @@ class StudentForm extends React.Component{
 <div class="formContainer">
   <form>
     <label for="studentName"> <FaIcons.FaUserGraduate className='icon'/> Student Name</label>
-    <input type="text" id="studentName" name="studentName" value={this.state.studentName} onChange={this.changeHandler} placeholder="Enter Student Name.." />
+    <input type="text" id="studentName" name="studentName" value={this.state.studentName} onChange={this.changeHandler} />
 
     <label for="birthday"><MdIcons.MdDateRange className='icon'/>Student Birthday:</label>
     <br/>
@@ -89,12 +107,12 @@ class StudentForm extends React.Component{
     <br/><br/>
 
     <label > <MdIcons.MdGrade className='icon'/> Student Grade</label>
-    <input type="text" id="studentGrade" name="studentGrade" value={this.state.studentGrade.gradeName} onChange={this.changeHandler} placeholder="Enter Student Grade.." />
+    <input type="text" id="studentGrade" name="studentGrade" value={this.state.studentGrade.gradeName} onChange={this.changeHandler} />
 
     <label > <GiIcons.GiMaterialsScience className='icon'/> Student Subjects</label>
-    <input type="text" id="studentSubjects" name="studentSubjects" value={this.state.studentSubjects.subjectName} onChange={this.changeHandler} placeholder="Enter Student Subject.."/>
+    <input type="text" id="studentSubjects" name="studentSubjects" value={this.state.studentSubjects.subjectName} onChange={this.changeHandler} />
 
-    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to add this item?'))this.submitForm()}} />
+    <input type="submit" onClick={()=> {if (window.confirm('Are you sure you wish to edit this item?'))this.submitForm()}}/>
 
   </form>
 </div>
@@ -102,4 +120,4 @@ class StudentForm extends React.Component{
    )
  }
 }
-export default StudentForm;
+export default UpdateStudent;

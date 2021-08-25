@@ -3,7 +3,6 @@ import './pages.css'
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-import * as BsIcons from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
 class Grade extends React.Component {
@@ -52,7 +51,7 @@ var grades = this.state.gradeList
      <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
-           <BsIcons.BsFileEarmarkText/>
+           <MdIcons.MdGrade />
            <span>Grades</span>
         </NavLink>
      </li>
@@ -80,11 +79,12 @@ var grades = this.state.gradeList
      <tr key={index}>
           <td>{grade.gradeName}</td>
 
-          <td> <button className='editButton'>
-              <AiIcons.AiFillEdit />
-              <span>Edit</span>
-           </button>
-           <button className='deleteButton' onClick={()=>this.deleteData(grade.pk)}>
+          <td>
+           <NavLink to={'updateGrade/'+grade.pk} className='editButton'>
+           <AiIcons.AiFillEdit />
+           <span>Edit</span>
+           </NavLink>
+           <button className='deleteButton' onClick={()=> {if (window.confirm('Are you sure you wish to delete this item?')) this.deleteData(grade.pk)}}>
               <AiIcons.AiFillDelete />
               <span>Delete</span>
            </button> </td>

@@ -2,12 +2,41 @@ import React from 'react'
 import './pages.css';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-import * as BsIcons from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
-
-
 class GradeForm extends React.Component{
+
+  constructor(){
+    super();
+    this.state={
+       gradeName:'',
+    }
+    this.changeHandler=this.changeHandler.bind(this);
+    this.submitForm=this.submitForm.bind(this);
+  }
+
+  // Input Change Handler
+    changeHandler(event){
+        this.setState({
+            [event.target.name]:event.target.value,
+        });
+    }
+    // Submit Form
+    submitForm(){
+        fetch('http://127.0.0.1:8000/app/grades/',{
+            method:'POST',
+            body:JSON.stringify(this.state),
+            headers:{
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        .then(response=>response.json())
+        .then((data)=>console.log(data));
+
+        this.setState({
+       gradeName:'',
+        });
+    }
 
   render(){
   return(
@@ -15,7 +44,7 @@ class GradeForm extends React.Component{
       <ul className='pagesNavbar'>
      <li >
         <NavLink to='#' className='icon'>
-           <BsIcons.BsFileEarmarkText/>
+           <MdIcons.MdGrade/>
            <span>Grades</span>
         </NavLink>
      </li>
@@ -33,14 +62,11 @@ class GradeForm extends React.Component{
      </li>
 </ul>
 
-<div class="formContainer">
-  <form>
-    <label for="gradeName"> <BsIcons.BsFileEarmarkText className='icon'/> Grade Name</label>
-    <input type="text" id="gradeName" name="gradeName" placeholder="Grade name.." />
+<div className="formContainer">
+    <label> <MdIcons.MdGrade className='icon'/> Grade Name</label>
+    <input type="text" id="gradeName" name="gradeName" value={this.state.gradeName} onChange={this.changeHandler} placeholder="Enter Grade Name.."  />
 
-    <input type="submit" value="Submit" />
-
-  </form>
+    <input type="submit"  onClick={()=> {if (window.confirm('Are you sure you wish to add this item?'))this.submitForm()}} />
 </div>
   </div>
    )
